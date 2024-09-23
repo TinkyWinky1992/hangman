@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+    <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-WW6BXNCP');</script>
+    <!-- End Google Tag Manager -->
+<head>
+
+   
+        <link rel="icon" href="/img/favicon.ico" type="image/x-icon">
+        <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon">
+        <link rel="icon" type="image/png" href="/img/favicon-32x32.png" sizes="32x32">
+        <link rel="icon" type="image/png" href="/img/favicon-16x16.png" sizes="16x16">
+              <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+        rel="stylesheet"
+      />
+      
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <!-- Title of the page -->
+      <meta property="og:title" content="Hangman creator" />
+        
+      <!-- Description -->
+      <meta property="og:description" content="enjoy playong hangman" />
+      
+      <!-- URL of your website -->
+      <meta property="og:url" content="https://game-gg9v.onrender.com" />
+      
+      <!-- URL of the image you want to display -->
+      <meta property="og:image" content="https://game-gg9v.onrender.com/hangman.jpg" />
+      
+      <!-- Type of content -->
+      <meta property="og:type" content="website" />
+    <title>Snowman Game</title>
+    <style>
+       body {
+        overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            height: 100vh;
+            align-items: center;
+            gap: 10px;
+            align-self: stretch;
+            background-color: #f0f0f0;
+        }
+        .title-gameplay {
+            color: #000;
+            text-align: center;
+            text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+            font-family: Inter;
+            font-size: 30px;
+            font-style: normal;
+            font-weight: 700;
+            line-height: normal;
+        }
+        .keyboard {
+            display: flex;
+            padding: 28px 10px;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            align-self: stretch;
+        }
+        .row {
+            display: flex;
+            padding: 5px;
+            justify-content: center;
+            align-items: center;
+            gap: 5px;
+        }
+        button {
+            color: #000;
+            text-align: center;
+            text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+            font-family: Inter;
+            font-size: 12px;
+            font-style: normal;
+            font-weight: 500;
+            line-height: normal;
+            display: flex;
+            padding: 10px;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-end;
+            flex-shrink: 0;
+            border-radius: 6px;
+            border: 1px solid rgba(0, 0, 0, 0.20);
+            background: rgba(255, 255, 255, 0.50);
+            box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        button:hover {
+            background-color: #e0e0e0; /* Change color on hover */
+        }
+        button:disabled {
+            background-color: lightgray;
+            color: white;
+            cursor: not-allowed;
+        }
+
+        .snowman {
+            font-size: 24px;
+            color: blue;
+            margin: 20px 0;
+        }
+
+        .game-over {
+            color: red;
+            font-size: 28px;
+        }
+
+        .win {
+            color: green;
+            font-size: 28px;
+        }
+        canvas {
+            background-color: #f0f0f0;
+            border: 2px solid #000;
+        }
+       
+        .title-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            align-self: stretch;
+        }
+        
+        .image-container {
+            display: flex;
+            flex-direction: column;
+            height: 300px;
+            align-items: center;
+            gap: 10px;
+            align-self: stretch;
+        }
+        .guess-conainer {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            flex-shrink: 0;
+            align-self: stretch;
+            width: 100%;
+        }
+        .word-display {
+            display: flex;
+            width: 34px;
+            height: 25px;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            flex-shrink: 0;
+            border-bottom: 2px solid #000;
+        }
+        
+
+        .result-container {
+            display: none; 
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            right: 0; 
+            bottom: 0; 
+            background: rgba(0, 0, 0, 0.6); 
+            justify-content: center; 
+            align-items: center;
+
+        }
+
+
+        .result-container .looser {
+            background:#f0f0f0;
+            width: 50%; 
+            text-align: center;
+            border-radius: 10px;
+            padding: 30px; 
+
+        }
+        .looser {
+            background: #f0f0f0;
+            width: 50%; 
+            text-align: center;
+            border-radius: 10px;
+            padding: 30px; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            justify-content: center; 
+        }
+        .play-again{
+        display: flex;
+        justify-content: center; 
+        align-items: center; 
+        margin-top: 20px; /* Add some spacing if needed */
+
+        }
+    </style>
+  
+</head>
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WW6BXNCP"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+     <div class="result-container">
+        <div class="looser">
+            <img id="resultImage" src="lost.gif" alt="gif" width="130px">
+            <h4 id=text-over class="over-title">Game Over!</h4>
+             <div   class="row2"  id="create_back" style="display: none" ><a href="index.html" target="_blank">Create a Hangman back to friend</a> <BR></div>
+        </div>
+     </div>
+     <div class="title-container">
+        <h1 class="title-gameplay">Hangman Game</h1>
+     </div>
+    <div class="image-container">
+        <div id="icon" class="row2"  ><img src="hangman3.png" alt="A cute hangman" width="300" height="300"></div>
+        <div  class="row2" >  <canvas id="snowmanCanvas" width="300" height="200" style="display:none;" ></canvas></div>
+    </div>
+    <div id="guess-conainer" class="guess-conainer"></div>
+    
+
+    <div >
+        <div id="keyboard" class="keyboard" style="display:block">
+            <!-- First row -->
+            <div class="row">
+                <button class='key-button'onclick="handleClick('Q')" id="Q">Q</button>
+                <button onclick="handleClick('W')" id="W">W</button>
+                <button onclick="handleClick('E')" id="E">E</button>
+                <button onclick="handleClick('R')" id="R">R</button>
+                <button onclick="handleClick('T')" id="T">T</button>
+                <button onclick="handleClick('Y')" id="Y">Y</button>
+                <button onclick="handleClick('U')" id="U">U</button>
+                <button onclick="handleClick('I')" id="I">I</button>
+                <button onclick="handleClick('O')" id="O">O</button>
+                <button onclick="handleClick('P')" id="P">P</button>
+            </div>
+        
+            <!-- Second row -->
+            <div class="row">
+                <button onclick="handleClick('A')" id="A">A</button>
+                <button onclick="handleClick('S')" id="S">S</button>
+                <button onclick="handleClick('D')" id="D">D</button>
+                <button onclick="handleClick('F')" id="F">F</button>
+                <button onclick="handleClick('G')" id="G">G</button>
+                <button onclick="handleClick('H')" id="H">H</button>
+                <button onclick="handleClick('J')" id="J">J</button>
+                <button onclick="handleClick('K')" id="K">K</button>
+                <button onclick="handleClick('L')" id="L">L</button>
+            </div>
+        
+            <!-- Third row -->
+            <div class="row">
+                <button onclick="handleClick('Z')" id="Z">Z</button>
+                <button onclick="handleClick('X')" id="X">X</button>
+                <button onclick="handleClick('C')" id="C">C</button>
+                <button onclick="handleClick('V')" id="V">V</button>
+                <button onclick="handleClick('B')" id="B">B</button>
+                <button onclick="handleClick('N')" id="N">N</button>
+                <button onclick="handleClick('M')" id="M">M</button>
+            </div>
+        </div>
+       
+          
+         
+    </div>
+
+   
+
+    <div id="message"></div>
+
+</body>
+<script>
+  
+
+    let word = 'HIV';
+    let currentDivIndex = 0;
+    let guessedWord = [];
+    let wrongGuesses = 0;
+    let gameid ;
+    let friendid;
+    const maxWrongGuesses = 4;
+
+    function decrypt(text) {
+        return atob(text);
+    }
+    function addDiv() {
+        const newDiv = document.createElement('div');
+
+        newDiv.style.display = "flex";
+        newDiv.style.width = "34px";
+        newDiv.style.height = "25px";
+        newDiv.style.flexDirection = "column";
+        newDiv.style.justifyContent = "center";
+        newDiv.style.alignItems = "center";
+        newDiv.style.flexShrink= "0";
+        newDiv.style.borderBottom = "2px solid #000";
+        
+        newDiv.style.fontSize = "20px";              
+        newDiv.style.fontWeight = "500";             
+        newDiv.style.color = "#000";                 
+        newDiv.style.textAlign = "center";
+        newDiv.style.textShadow = "0px 4px 4px rgba(0, 0, 0, 0.25)";
+        newDiv.style.fontFamily = "Inter";
+        newDiv.style.lineHeight = "normal";
+
+        document.getElementById('guess-conainer').appendChild(newDiv);
+
+    
+    }
+
+
+    // Get query parameter from the URL
+    function getQueryParam(param) {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get(param);
+    }
+
+    function startGame() {
+       
+        const encryptedWord = getQueryParam('word');
+        gameid = getQueryParam('g');
+        /*
+        var gameFound = localStorage.getItem(gameid);
+        if(gameFound){
+            alert('you already played this game ');
+             window.location.href = 'index.html'
+           
+            return;
+        }
+            */
+        for(let i = 0; i <word.length; i++)
+            addDiv();
+
+        friendid =getQueryParam('p');
+        if (!encryptedWord) {
+            alert('No word found!');
+            return;
+        }
+
+        word = decrypt(encryptedWord);
+        guessedWord = Array(word.length).fill('_');
+        showSpaces();
+        document.getElementById('word-display').innerHTML = guessedWord.join(' ');
+    }
+
+    function showSpaces ()
+    {
+        for (let i = 0; i < word.length; i++) {
+                if (word[i] === ' ') {
+                    guessedWord[i] = '&nbsp;';
+                }
+            }
+    }
+    function handleClick(letter) {
+        guess(letter);
+        // Disable the button
+        document.getElementById(letter).disabled = true;
+    }
+
+    function guess(letter) {
+       
+       
+        if (word.includes(letter)) {
+            // Correct guess, reveal the letter
+        for (let i = 0; i < word.length; i++) {
+            if (word[i] === letter) {
+                guessedWord[i] = letter;
+                break;  // Stop after revealing the first occurrence of the letter
+            }
+        }
+            const containerDiv = document.getElementById('guess-conainer');
+            const divs = containerDiv.querySelectorAll('div');
+
+            //divs[currentDivIndex].textContent = guessedWord.join(' ');
+            divs[currentDivIndex].textContent = letter;
+            currentDivIndex++
+            // Check if the player has won
+            if (guessedWord.join('').replace('&nbsp;',' ') === word) {
+                youwin();
+                saveGaneEnded('1');
+                disableGame();
+            }
+        } else {
+            // Incorrect guess, add a snowman part
+            wrongGuesses++;
+            drawNextStep();
+
+            // Check if the player has lost
+            if (wrongGuesses === maxWrongGuesses) {
+                youloose();
+                saveGaneEnded('0');
+                disableGame();
+            }
+        }
+    }
+    
+
+    function saveGaneEnded (result)
+    {
+        localStorage.setItem(gameid, {"word": word, "result": result, "friendid": friendid});
+    }
+
+    function disableGame() {
+        document.getElementById('create_back').style.display = 'block';
+   
+        document.getElementById('keyboard').style.display = 'none';
+   
+        
+
+    }
+
+    // Initialize the game
+    window.onload = startGame;
+   
+    const canvas = document.getElementById('snowmanCanvas');
+        const ctx = canvas.getContext('2d');
+        let currentStep = 0;
+
+    function Changedraw(url) {
+        clearImageAndShowCanvas(); // Hide the initial image
+        const iconDiv = document.getElementById('icon');
+        
+        // Clear previous content
+        iconDiv.innerHTML = '';
+
+        // Create a new image element for the head
+        const headImage = document.createElement('img');
+        headImage.src = url; 
+        headImage.alt = 'Snowman Head';
+        headImage.width = 300; // Adjust size if needed
+        headImage.height = 300; // Adjust size if needed
+        
+        // Append the new head image to the icon div
+        iconDiv.appendChild(headImage);
+    }
+
+
+
+        // Function to draw the snowman step by step
+        function drawNextStep() {
+
+           
+            currentStep++;
+
+            switch (currentStep) {
+                case 1:
+                    Changedraw('hanmanhead.png')
+                   // clearImageAndShowCanvas();
+                    break;
+                case 2:
+                    Changedraw('hangman2.png')
+                    break;
+                case 3:
+                    Changedraw('hangmanrightleg.png')
+                    break;
+                case 4:
+                    Changedraw('hangmanfinish.png')
+                    break;
+                default:
+                    //alert("Snowman complete!");
+                    break;
+            }
+        }
+        function clearImageAndShowCanvas() {
+           // document.getElementById('snowmanCanvas').style.display = 'block';
+            //document.getElementById('icon').style.display = 'none';
+        }
+        // Step 1: Draw the base circle
+
+
+      
+
+        function youwin() {
+            clearImageAndShowCanvas();  
+            /*
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.font = '36px Arial';
+            ctx.fillStyle = 'green';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText('YOU WIN!', canvas.width / 2, canvas.height / 2);
+
+            */
+            document.querySelector('.result-container').style.display = 'flex';
+            const resultimg = document.getElementById('resultImage');
+            resultimg.src = 'victory.gif';
+
+            const text = document.getElementById('text-over')
+            text.textContent = "Winner!";
+        }
+
+        function youloose() {
+            clearImageAndShowCanvas(); 
+            /*
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.font = '36px Arial';
+            ctx.fillStyle = 'red';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText('YOU LOOSE!', canvas.width / 2, canvas.height / 2);
+            */
+        document.querySelector('.result-container').style.display = 'flex';
+        const resultimg = document.getElementById('resultImage');
+        resultimg.src = 'lost.gif'
+
+        const text = document.getElementById('text-over');
+        text.textContent = "Game Over!";
+        }
+    </script>
+  
+</script>
+</html>
